@@ -1,0 +1,45 @@
+td {
+    background-color: #353535;
+    border : 2px solid #181818;
+    width : 3vw;
+    height : 3vw;
+    text-align: center;
+}
+
+td:hover {
+    background-color: #222222;
+    color: #222222;
+}
+
+table {
+
+}
+
+body {
+    background-color: #b0b0b0;
+}
+
+.open {
+    background-color: whitesmoke;
+    color: #181818;
+}
+.open:hover {
+    background-color: whitesmoke;
+    color: #181818;
+}
+
+.flagged {
+    background-image: url("../misc/img/flag.png");
+    background-size: contain;
+}
+.flagged:hover {
+    background-image: url("../misc/img/flag.png");
+}
+
+.bomb {
+    background-image: url("../misc/img/bomb.png");
+    background-size: contain;
+}
+.bomb:hover {
+    background-image: url("../misc/img/bomb.png");
+}
