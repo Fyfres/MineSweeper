@@ -21,7 +21,7 @@ class Action {
                         event.target.className = "open";
                     }
                     let id = event.target.attributes.id.value;
-                    Board.checkCase([id[1], id[3]]);
+                    Board.checkCase([parseInt(id[1]), parseInt(id[3])]);
             }
             return false
         }

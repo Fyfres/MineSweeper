@@ -114,57 +114,62 @@ class Board {
     }
 
     static _checkAroundBlank(pos) {
-        let handler = (position) => {
-            if(!Board.board[position[0]][position[1]].open) {
-                document.querySelector("#r" + position[0] + "l" + position[1]).className = "open"
-                Board._checkAroundBlank([position[0], position[1]])
+        if (typeof pos[0] != "object") {
+            pos = [pos];
+        }
+
+        let foundBlanksPos = [];
+        pos.forEach((position) => {
+            if (Board._checkType([position[0], position[1]+1]) === "blank" && !Board.board[position[0]][position[1]+1].open) {
+                foundBlanksPos.push([position[0], position[1]+1]);
+                Board.board[position[0]][position[1]+1].open = true;
+                document.querySelector("#r" + (position[0]).toString() + "l" + (position[1]+1).toString()).className = "open";
+            } else if (Board._checkType([position[0], position[1]+1]) === "number" && !Board.board[position[0]][position[1]+1].open) {
+                Board.board[position[0]][position[1]+1].open = true;
+                document.querySelector("#r" + (position[0]).toString() + "l" + (position[1]+1).toString()).className = "open";
+                document.querySelector("#r" + (position[0]).toString() + "l" + (position[1]+1).toString()).innerHTML = Board.board[position[0]][position[1]+1].visual;
             }
-        }
 
-        let handlerNumber = (position) => {
-            document.querySelector("#r" + position[0] + "l" + position[1]).className = "open"
-            Board.checkCase(position);
-        }
+            if (Board._checkType([position[0], position[1]-1]) === "blank" && !Board.board[position[0]][position[1]-1].open) {
+                foundBlanksPos.push([position[0], position[1]-1]);
+                Board.board[position[0]][position[1]-1].open = true;
+                Board.checkCase([position[0], position[1]-1]);
+                document.querySelector("#r" + (position[0]).toString() + "l" + (position[1]-1).toString()).className = "open";
+            } else if (Board._checkType([position[0], position[1]-1]) === "number" && !Board.board[position[0]][position[1]-1].open) {
+                Board.board[position[0]][position[1]-1].open = true;
+                document.querySelector("#r" + (position[0]).toString() + "l" + (position[1]-1).toString()).className = "open";
+                document.querySelector("#r" + (position[0]).toString() + "l" + (position[1]-1).toString()).innerHTML = Board.board[position[0]][position[1]-1].visual;
+            }
 
-        Board.board[pos[0]][pos[1]].open = true;
+            if (Board._checkType([position[0]+1, position[1]]) === "blank" && !Board.board[position[0]+1][position[1]].open) {
+                foundBlanksPos.push([position[0]+1, position[1]]);
+                Board.board[position[0]+1][position[1]].open = true;
+                Board.checkCase([position[0]+1, position[1]]);
+                document.querySelector("#r" + (position[0]+1).toString() + "l" + (position[1]).toString()).className = "open";
+            } else if (Board._checkType([position[0]+1, position[1]]) === "number" && !Board.board[position[0]+1][position[1]].open) {
+                Board.board[position[0]+1][position[1]].open = true;
+                document.querySelector("#r" + (position[0]+1).toString() + "l" + (position[1]+1).toString()).className = "open";
+                document.querySelector("#r" + (position[0]+1).toString() + "l" + (position[1]+1).toString()).innerHTML = Board.board[position[0]+1][position[1]].visual;
+            }
 
-        if(Board._checkType([pos[0]-1,pos[1]+1]) === "blank") {
-            handler([pos[0]-1,pos[1]+1]);
+            if (Board._checkType([position[0]-1, position[1]]) === "blank" && !Board.board[position[0]-1][position[1]].open) {
+                foundBlanksPos.push([position[0]-1, position[1]]);
+                Board.board[position[0]-1][position[1]].open = true;
+                Board.checkCase([position[0]-1, position[1]]);
+                document.querySelector("#r" + (position[0]-1).toString() + "l" + (position[1]).toString()).className = "open";
+            } else if (Board._checkType([position[0]-1, position[1]]) === "number" && !Board.board[position[0]-1][position[1]].open) {
+                Board.board[position[0]-1][position[1]].open = true;
+                document.querySelector("#r" + (position[0]-1).toString() + "l" + (position[1]).toString()).className = "open";
+                document.querySelector("#r" + (position[0]-1).toString() + "l" + (position[1]).toString()).innerHTML = Board.board[position[0]-1][position[1]].visual;
+            }
+        })
+        if (foundBlanksPos.length > 0) {
+            Board._checkAroundBlank(foundBlanksPos);
         }
-        if(Board._checkType([pos[0]-1,pos[1]]) === "blank") {
-            handler([pos[0]-1,pos[1]]);
-        } else if(Board._checkType([pos[0]-1,pos[1]]) === "number") {
-            handlerNumber([pos[0]-1,pos[1]]);
-        }
-        if(Board._checkType([pos[0]-1,pos[1]-1]) === "blank") {
-            handler([pos[0]-1,pos[1]-1]);
-        }
-        if(Board._checkType([pos[0]+1,pos[1]+1]) === "blank") {
-            handler([pos[0]+1,pos[1]+1]);
-        }
-        if(Board._checkType([pos[0]+1,pos[1]]) === "blank") {
-            handler([pos[0]+1,pos[1]]);
-        } else if(Board._checkType([pos[0]+1,pos[1]]) === "number") {
-            handlerNumber([pos[0]+1,pos[1]]);
-        }
-        if(Board._checkType([pos[0]+1,pos[1]-1]) === "blank") {
-            handler([pos[0]+1,pos[1]-1]);
-        }
-        if(Board._checkType([pos[0],pos[1]+1]) === "blank") {
-            handler([pos[0],pos[1]+1]);
-        } else if(Board._checkType([pos[0],pos[1]+1]) === "number") {
-            handlerNumber([pos[0],pos[1]+1]);
-        }
-        if(Board._checkType([pos[0],pos[1]-1]) === "blank") {
-            handler([pos[0],pos[1]-1]);
-        } else if(Board._checkType([pos[0],pos[1]-1]) === "number") {
-            handlerNumber([pos[0],pos[1]-1]);
-        }
-
     }
 
     static _checkType(pos){
-        if(typeof Board.board[pos[0]] === "undefined" || typeof Board.board[pos[0]][pos[1]] === "undefined") {
+        if(typeof pos === "undefined" || typeof pos[0] === "undefined" || typeof pos[1] === "undefined" || typeof Board.board[pos[0]] === "undefined" || typeof Board.board[pos[0]][pos[1]] === "undefined") {
             return "void";
         }
         return Board.board[pos[0]][pos[1]].type;
@@ -174,10 +179,10 @@ class Board {
     // EXTERNAL METHODS
 
     static checkCase(pos) {
-        Board.board[pos[0]]
         let type = Board._checkType(pos);
         if (type === "bomb") {
             document.querySelector("#r" + pos[0] + "l" + pos[1]).className += " bomb";
+            Game.losedGame();
         } else if (type === "number") {
             document.querySelector("#r" + pos[0] + "l" + pos[1]).innerHTML = Board.board[pos[0]][pos[1]].visual;
         } else if (type === "blank") {
