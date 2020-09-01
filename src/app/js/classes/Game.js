@@ -33,4 +33,11 @@ class Game {
         document.querySelector("#myModaBody").innerHTML = "Vous avez perdu ! Ne perdez pas confiance, ca arrive à tout le monde !";
         $("#myModal").modal("show");
     }
+
+    static winnedGame() {
+        Game.status = "win";
+        document.querySelector("#myModalTitle").innerHTML = "Gagné !";
+        document.querySelector("#myModaBody").innerHTML = "Vous avez gagné ! Continuez sur votre lancée, vous devez avoir un don pour ce jeu !";
+        $("#myModal").modal("show");
+    }
 }

@@ -120,51 +120,30 @@ class Board {
 
         let foundBlanksPos = [];
         pos.forEach((position) => {
-            if (Board._checkType([position[0], position[1]+1]) === "blank" && !Board.board[position[0]][position[1]+1].open) {
-                foundBlanksPos.push([position[0], position[1]+1]);
-                Board.board[position[0]][position[1]+1].open = true;
-                document.querySelector("#r" + (position[0]).toString() + "l" + (position[1]+1).toString()).className = "open";
-            } else if (Board._checkType([position[0], position[1]+1]) === "number" && !Board.board[position[0]][position[1]+1].open) {
-                Board.board[position[0]][position[1]+1].open = true;
-                document.querySelector("#r" + (position[0]).toString() + "l" + (position[1]+1).toString()).className = "open";
-                document.querySelector("#r" + (position[0]).toString() + "l" + (position[1]+1).toString()).innerHTML = Board.board[position[0]][position[1]+1].visual;
-            }
+            Board._checkCross(position, "blank", (pos) => {
+                foundBlanksPos.push([pos[0], pos[1]]);
+                Board.board[pos[0]][pos[1]].open = true;
+                document.querySelector("#r" + (pos[0]).toString() + "l" + (pos[1]).toString()).className = "open";
 
-            if (Board._checkType([position[0], position[1]-1]) === "blank" && !Board.board[position[0]][position[1]-1].open) {
-                foundBlanksPos.push([position[0], position[1]-1]);
-                Board.board[position[0]][position[1]-1].open = true;
-                Board.checkCase([position[0], position[1]-1]);
-                document.querySelector("#r" + (position[0]).toString() + "l" + (position[1]-1).toString()).className = "open";
-            } else if (Board._checkType([position[0], position[1]-1]) === "number" && !Board.board[position[0]][position[1]-1].open) {
-                Board.board[position[0]][position[1]-1].open = true;
-                document.querySelector("#r" + (position[0]).toString() + "l" + (position[1]-1).toString()).className = "open";
-                document.querySelector("#r" + (position[0]).toString() + "l" + (position[1]-1).toString()).innerHTML = Board.board[position[0]][position[1]-1].visual;
-            }
-
-            if (Board._checkType([position[0]+1, position[1]]) === "blank" && !Board.board[position[0]+1][position[1]].open) {
-                foundBlanksPos.push([position[0]+1, position[1]]);
-                Board.board[position[0]+1][position[1]].open = true;
-                Board.checkCase([position[0]+1, position[1]]);
-                document.querySelector("#r" + (position[0]+1).toString() + "l" + (position[1]).toString()).className = "open";
-            } else if (Board._checkType([position[0]+1, position[1]]) === "number" && !Board.board[position[0]+1][position[1]].open) {
-                Board.board[position[0]+1][position[1]].open = true;
-                document.querySelector("#r" + (position[0]+1).toString() + "l" + (position[1]+1).toString()).className = "open";
-                document.querySelector("#r" + (position[0]+1).toString() + "l" + (position[1]+1).toString()).innerHTML = Board.board[position[0]+1][position[1]].visual;
-            }
-
-            if (Board._checkType([position[0]-1, position[1]]) === "blank" && !Board.board[position[0]-1][position[1]].open) {
-                foundBlanksPos.push([position[0]-1, position[1]]);
-                Board.board[position[0]-1][position[1]].open = true;
-                Board.checkCase([position[0]-1, position[1]]);
-                document.querySelector("#r" + (position[0]-1).toString() + "l" + (position[1]).toString()).className = "open";
-            } else if (Board._checkType([position[0]-1, position[1]]) === "number" && !Board.board[position[0]-1][position[1]].open) {
-                Board.board[position[0]-1][position[1]].open = true;
-                document.querySelector("#r" + (position[0]-1).toString() + "l" + (position[1]).toString()).className = "open";
-                document.querySelector("#r" + (position[0]-1).toString() + "l" + (position[1]).toString()).innerHTML = Board.board[position[0]-1][position[1]].visual;
-            }
+            })
         })
         if (foundBlanksPos.length > 0) {
             Board._checkAroundBlank(foundBlanksPos);
+        }
+        return Board._checkAroundNumber();
+    }
+
+    static _checkAroundNumber() {
+        for (let i = 0; i < Board.board.length; i++) {
+            for (let j = 0; j < Board.board[i].length; j++) {
+                if(Board.board[i][j].open && Board._checkType([i, j]) === "blank") {
+                    Board._checkCross([i, j], 'number', (pos) => {
+                        Board.board[pos[0]][pos[1]].open = true;
+                        document.querySelector("#r" + (pos[0]).toString() + "l" + (pos[1]).toString()).className = "open";
+                        document.querySelector("#r" + (pos[0]).toString() + "l" + (pos[1]).toString()).innerHTML = Board.board[pos[0]][pos[1]].visual;
+                    })
+                }
+            }
         }
     }
 
@@ -173,6 +152,40 @@ class Board {
             return "void";
         }
         return Board.board[pos[0]][pos[1]].type;
+    }
+
+    static _checkCross(position, type, todo = () => {}) {
+        if (Board._checkType([position[0], position[1]+1]) === type && !Board.board[position[0]][position[1]+1].open) {
+            todo([position[0], position[1]+1]);
+        }
+
+        if (Board._checkType([position[0], position[1]-1]) === type && !Board.board[position[0]][position[1]-1].open) {
+            todo([position[0], position[1]-1]);
+        }
+
+        if (Board._checkType([position[0]+1, position[1]]) === type && !Board.board[position[0]+1][position[1]].open) {
+            todo([position[0]+1, position[1]]);
+        }
+
+        if (Board._checkType([position[0]-1, position[1]]) === type && !Board.board[position[0]-1][position[1]].open) {
+            todo([position[0]-1, position[1]]);
+        }
+    }
+
+    static _isOnlyBomb() {
+        let nbOpenedCase = 0;
+        for (let i = 0; i < Board.board.length; i++) {
+            for (let j = 0; j < Board.board[i].length; j++) {
+                if(Board._checkType([i, j]) === "number" && Board._checkType([i, j]) === "blank"){
+                    if(!Board.board[i][j].open) {
+                        nbOpenedCase++;
+                    }
+                }
+            }
+        }
+        if (nbOpenedCase >= ((Board.size * Board.size) - Board.bomb)) {
+            Game.winnedGame();
+        }
     }
 
 
@@ -185,8 +198,11 @@ class Board {
             Game.losedGame();
         } else if (type === "number") {
             document.querySelector("#r" + pos[0] + "l" + pos[1]).innerHTML = Board.board[pos[0]][pos[1]].visual;
+            Board._isOnlyBomb();
         } else if (type === "blank") {
             Board._checkAroundBlank(pos);
+            Board._checkAroundNumber();
+            Board._isOnlyBomb();
         } else if (type === "void") {
             return
         } else {

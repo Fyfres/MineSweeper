@@ -19,9 +19,9 @@ class Action {
             if (event.target.localName === "td") {
                     if (event.target.className === "") {
                         event.target.className = "open";
+                        let id = event.target.attributes.id.value;
+                        Board.checkCase([parseInt(id[1]), parseInt(id[3])]);
                     }
-                    let id = event.target.attributes.id.value;
-                    Board.checkCase([parseInt(id[1]), parseInt(id[3])]);
             }
             return false
         }
@@ -32,7 +32,6 @@ class Action {
         let handler2 = (event) => {
             event.preventDefault();
             if (event.target.localName === "td") {
-                console.log(event.target.className === "flagged")
                 if (event.target.className === "flagged"){
                     event.target.className = "";
                 } else if (event.target.className === ""){
