@@ -10,143 +10,53 @@
 <div id="gameContainer">
     <table class="mx-auto">
         <tbody>
-        <tr id="r0">
-            <td id="r0l0"></td>
-            <td id="r0l1"></td>
-            <td id="r0l2"></td>
-            <td id="r0l3"></td>
-            <td id="r0l4"></td>
-            <td id="r0l5"></td>
-            <td id="r0l6"></td>
-            <td id="r0l7"></td>
-            <td id="r0l8"></td>
-            <td id="r0l9"></td>
-        </tr>
-        <tr id="r1">
-            <td id="r1l0"></td>
-            <td id="r1l1"></td>
-            <td id="r1l2"></td>
-            <td id="r1l3"></td>
-            <td id="r1l4"></td>
-            <td id="r1l5"></td>
-            <td id="r1l6"></td>
-            <td id="r1l7"></td>
-            <td id="r1l8"></td>
-            <td id="r1l9"></td>
-        </tr>
-        <tr id="r2">
-            <td id="r2l0"></td>
-            <td id="r2l1"></td>
-            <td id="r2l2"></td>
-            <td id="r2l3"></td>
-            <td id="r2l4"></td>
-            <td id="r2l5"></td>
-            <td id="r2l6"></td>
-            <td id="r2l7"></td>
-            <td id="r2l8"></td>
-            <td id="r2l9"></td>
-        </tr>
-        <tr id="r3">
-            <td id="r3l0"></td>
-            <td id="r3l1"></td>
-            <td id="r3l2"></td>
-            <td id="r3l3"></td>
-            <td id="r3l4"></td>
-            <td id="r3l5"></td>
-            <td id="r3l6"></td>
-            <td id="r3l7"></td>
-            <td id="r3l8"></td>
-            <td id="r3l9"></td>
-        </tr>
-        <tr id="r4">
-            <td id="r4l0"></td>
-            <td id="r4l1"></td>
-            <td id="r4l2"></td>
-            <td id="r4l3"></td>
-            <td id="r4l4"></td>
-            <td id="r4l5"></td>
-            <td id="r4l6"></td>
-            <td id="r4l7"></td>
-            <td id="r4l8"></td>
-            <td id="r4l9"></td>
-        </tr>
-        <tr id="r5">
-            <td id="r5l0"></td>
-            <td id="r5l1"></td>
-            <td id="r5l2"></td>
-            <td id="r5l3"></td>
-            <td id="r5l4"></td>
-            <td id="r5l5"></td>
-            <td id="r5l6"></td>
-            <td id="r5l7"></td>
-            <td id="r5l8"></td>
-            <td id="r5l9"></td>
-        </tr>
-        <tr id="r6">
-            <td id="r6l0"></td>
-            <td id="r6l1"></td>
-            <td id="r6l2"></td>
-            <td id="r6l3"></td>
-            <td id="r6l4"></td>
-            <td id="r6l5"></td>
-            <td id="r6l6"></td>
-            <td id="r6l7"></td>
-            <td id="r6l8"></td>
-            <td id="r6l9"></td>
-        </tr>
-        <tr id="r7">
-            <td id="r7l0"></td>
-            <td id="r7l1"></td>
-            <td id="r7l2"></td>
-            <td id="r7l3"></td>
-            <td id="r7l4"></td>
-            <td id="r7l5"></td>
-            <td id="r7l6"></td>
-            <td id="r7l7"></td>
-            <td id="r7l8"></td>
-            <td id="r7l9"></td>
-        </tr>
-        <tr id="r8">
-            <td id="r8l0"></td>
-            <td id="r8l1"></td>
-            <td id="r8l2"></td>
-            <td id="r8l3"></td>
-            <td id="r8l4"></td>
-            <td id="r8l5"></td>
-            <td id="r8l6"></td>
-            <td id="r8l7"></td>
-            <td id="r8l8"></td>
-            <td id="r8l9"></td>
-        </tr>
-        <tr id="r9">
-            <td id="r9l0"></td>
-            <td id="r9l1"></td>
-            <td id="r9l2"></td>
-            <td id="r9l3"></td>
-            <td id="r9l4"></td>
-            <td id="r9l5"></td>
-            <td id="r9l6"></td>
-            <td id="r9l7"></td>
-            <td id="r9l8"></td>
-            <td id="r9l9"></td>
-        </tr>
         </tbody>
     </table>
 </div>
+<div class="text-center mt-5">
+    <button type="button" class="btn btn-primary mx-auto" data-toggle="modal" data-target="#playModal">
+        Nouvelle partie
+    </button>
+</div>
+
+
 
 <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="myModalTitle">Modal title</h5>
+                <h5 class="modal-title" id="myModalTitle"></h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body" id="myModaBody">
+            <div class="modal-body" id="myModalBody">
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="Game.resetGame()">Fermer</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal fade" id="playModal" tabindex="-1" aria-labelledby="playModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="playModalTitle">Jouer</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center" id="playModalBody">
+                <h3 class="mx-auto">Choisir une difficulté</h3>
+                <br>
+                <button class="btn btn-success mx-auto" onclick="Game.startGame(3, 5)">Facile</button>
+                <button class="btn btn-success mx-auto" onclick="Game.startGame(5, 7)">Moyen</button>
+                <button class="btn btn-success mx-auto" onclick="Game.startGame(10, 10)">Difficile</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
             </div>
         </div>
     </div>
@@ -162,7 +72,6 @@
 <script src="src/app/js/classes/Game.js"></script>
 <script src="src/app/js/classes/Action.js"></script>
 <script>
-    Board._createBoard();
 Action.initActions();
 </script>
 </body>

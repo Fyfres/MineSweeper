@@ -176,8 +176,9 @@ class Board {
         let nbOpenedCase = 0;
         for (let i = 0; i < Board.board.length; i++) {
             for (let j = 0; j < Board.board[i].length; j++) {
-                if(Board._checkType([i, j]) === "number" && Board._checkType([i, j]) === "blank"){
-                    if(!Board.board[i][j].open) {
+                if(Board._checkType([i, j]) === "number" || Board._checkType([i, j]) === "blank"){
+                    console.log(Board.board[i][j]);
+                    if(Board.board[i][j].open) {
                         nbOpenedCase++;
                     }
                 }
@@ -197,9 +198,11 @@ class Board {
             document.querySelector("#r" + pos[0] + "l" + pos[1]).className += " bomb";
             Game.losedGame();
         } else if (type === "number") {
+            Board.board[pos[0]][pos[1]].open = true;
             document.querySelector("#r" + pos[0] + "l" + pos[1]).innerHTML = Board.board[pos[0]][pos[1]].visual;
             Board._isOnlyBomb();
         } else if (type === "blank") {
+            Board.board[pos[0]][pos[1]].open = true;
             Board._checkAroundBlank(pos);
             Board._checkAroundNumber();
             Board._isOnlyBomb();
