@@ -1,4 +1,5 @@
-# Minesweeper
+# Minesweeper  
+# WORK ONLY ON CHROME FOR NOW !!!
 
 This is a Minesweeper that i'm trying to do the most quickly possible
 
