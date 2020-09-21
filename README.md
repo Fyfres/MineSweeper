@@ -8,9 +8,13 @@ This is a Minesweeper that i'm trying to do the most quickly possible
 
 not Done yet.
 
-### How to use
+### How to use  
+WORK ONLY ON CHROME  
 
-not Done yet.
+1/ Download with the repository  
+2/ Extract the ZIP wherever you want on your computer.  
+3/ Open the folder you just extracted.  
+4/ Open the game using the file "index.html".  
 
 ### Time on it
 
